@@ -36,11 +36,12 @@ class LiggghtsRunner:
         log_file = output_dir / "liggghts.log"
         input_file.write_text(self._build_liggghts_input(config), encoding="utf-8")
 
-        executable = shutil.which(self.liggghts_cmd)
+        executable = self._resolve_executable()
         if executable is None:
             message = (
                 f"LIGGGHTS executable '{self.liggghts_cmd}' not found. "
-                "Generated input deck only (dry-run mode)."
+                "Generated input deck only (dry-run mode). "
+                "Install LIGGGHTS and/or set LIGGGHTS_CMD to your binary path."
             )
             log_file.write_text(message + "\n", encoding="utf-8")
             return RunArtifacts(
@@ -74,6 +75,20 @@ class LiggghtsRunner:
             log_file=log_file,
             command=command,
         )
+
+    def _resolve_executable(self) -> str | None:
+        executable = shutil.which(self.liggghts_cmd)
+        if executable:
+            return executable
+
+        if self.liggghts_cmd != "lmp":
+            return None
+
+        for candidate in ("lmp_serial", "liggghts"):
+            candidate_executable = shutil.which(candidate)
+            if candidate_executable:
+                return candidate_executable
+        return None
 
     def _build_liggghts_input(self, config: MillConfig) -> str:
         radius = config.diameter_m / 2
