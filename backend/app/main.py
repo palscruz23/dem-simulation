@@ -44,6 +44,7 @@ def create_run(config: MillConfig) -> RunResponse:
         input_file=str(artifacts.input_file),
         log_file=str(artifacts.log_file),
         command=artifacts.command,
+        charge_throw=artifacts.charge_throw,
     )
 
 

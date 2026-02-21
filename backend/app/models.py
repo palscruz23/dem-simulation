@@ -23,6 +23,24 @@ class MillConfig(BaseModel):
         return value
 
 
+class TrajectoryPoint(BaseModel):
+    x: float
+    y: float
+    speed: float
+
+
+class ParticleTrajectory(BaseModel):
+    particle_id: int
+    points: list[TrajectoryPoint]
+
+
+class ChargeThrowData(BaseModel):
+    source: str
+    message: str
+    frame_count: int = 0
+    trajectories: list[ParticleTrajectory] = Field(default_factory=list)
+
+
 class RunResponse(BaseModel):
     run_id: str
     status: str
@@ -31,3 +49,4 @@ class RunResponse(BaseModel):
     input_file: str
     log_file: str
     command: list[str]
+    charge_throw: ChargeThrowData

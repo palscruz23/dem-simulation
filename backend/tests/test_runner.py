@@ -23,3 +23,4 @@ def test_runner_creates_input_and_dry_run(tmp_path: Path) -> None:
     assert result.input_file.exists()
     assert "units si" in result.input_file.read_text(encoding="utf-8")
     assert result.log_file.exists()
+    assert result.charge_throw.source == "unavailable"

@@ -29,6 +29,23 @@
         <h2>Run result</h2>
         <pre id="output">Waiting for run...</pre>
       </section>
+
+      <section>
+        <h2>Charge throw & velocity preview</h2>
+        <p class="viz-note">
+          Visualization generated from LIGGGHTS dump output after each run.
+        </p>
+        <div class="viz-grid">
+          <figure>
+            <figcaption>Charge throw over one revolution (from LIGGGHTS)</figcaption>
+            <canvas id="throw-canvas" width="420" height="420"></canvas>
+          </figure>
+          <figure>
+            <figcaption>Velocity intensity map</figcaption>
+            <canvas id="velocity-canvas" width="420" height="420"></canvas>
+          </figure>
+        </div>
+      </section>
     </main>
 
     <script src="app.js"></script>
